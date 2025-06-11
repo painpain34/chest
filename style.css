@@ -1,0 +1,360 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 120px 1fr 250px; /* 三列布局：导航栏 | 主内容 | 报告栏 */
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+.game-container {
+    text-align: center;
+}
+ 
+.main-content{
+    display: flex;
+    height: 100vh;
+    width:100vw;
+}
+.chest {
+    display: inline-block; /* 使容器大小由内容决定 */
+    position: relative; /* 为子元素定位提供参考 */
+    margin: 80px 0 50px 0; /* 上50px 右0 下50px 左0 */
+}
+
+.chest img {
+    display: inline-block; /* 使容器大小由内容决定 */
+    position: relative; /* 为子元素定位提供参考 */
+    display: block; /* 消除图片下方的空白 */
+    cursor: pointer; /* 显示手型指针 */
+    width: 200px; /* 设置固定宽度，根据实际图片大小调整 */
+    height: 180px; /* 高度自动保持比例 */
+}
+#chest {
+    padding: 0; /* 移除内边距 */
+    border: none; /* 移除边框 */
+    background: none; /* 移除背景 */
+}
+
+.equipment-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 50px;
+    width: 340px; /* 3列x100px + 2间隙x20px */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.equipment-slot {
+    width: 100px;
+    height: 100px;
+    border: 2px solid #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: white;
+}
+.top-nav {
+    flex:5;
+    overflow-y: auto;
+    box-sizing: border-box;
+    position: sticky;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 8vw;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 100;
+    align-items: center;  /* 新增：确保子元素水平居中 */
+}
+
+.nav-btn {
+    margin: 10px auto;
+    padding: 10px 0;
+    width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.nav-separator {
+    margin: 10px 0;
+    border-top: 1px solid #555;
+    flex-grow: 1;
+}
+
+.character-panel {
+    
+    position: fixed;
+    left: 180px;
+    top: 20px;
+    width: 200px;
+    padding: 15px;
+    background: #f5e6c8;
+    border: 3px solid #8b4513;
+    border-radius: 5px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+    font-family: 'Times New Roman', serif;
+    margin-top: 50px;
+    transition: all 0.3s ease;
+
+}
+.game-pages {
+    flex:50;
+    height:100vh;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+/* 报告栏样式 */
+.report-panel {
+    flex:10;
+    height:100vh;
+    overflow-y: auto;
+    box-sizing: border-box;
+    background: rgba(245, 230, 200, 0.9); /* 浅米色半透明背景 */
+    border: 3px solid #8b4513; /* 深棕色边框 */
+    border-radius: 5px; /* 圆角边框 */
+    padding: 15px; /* 内边距 */
+}
+
+.report-panel h3 {
+    color: #8b0000;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#report-content {
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+
+.stat-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #8b0000;
+}
+.stat-subtitle {
+    font-size: 30px;
+    font-style: italic;
+    margin-bottom: 8px;
+    color: #556b2f;
+}
+.stat-line {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.upgrade-container {
+    margin-top: 10px;
+
+    
+}
+
+#upgrade-chest {
+    padding: 15px 25px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.upgrade-tip {
+    font-size: 20px;
+    color: #666;
+    margin-top: 5px;
+}
+
+
+
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #f5e6c8;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    max-width: 80%;
+    border: 3px solid #8b4513;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.modal-buttons button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+#chest-level {
+    font-size: 24px;
+    font-weight: bold;
+    color: #8a2be2; /* 紫罗兰色 */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    margin-bottom: 10px;
+}
+
+
+#adventure-container {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* 技能标题样式 */
+#adventure-container h2 {
+    color: #4a4e69;
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+/* 冒险按钮容器样式 */
+.adventure-btn-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 两列布局 */
+    gap: 15px;
+    width: 100%;
+    max-width: 800px; /* 限制最大宽度 */
+    margin-top: 20px;
+}
+
+
+
+
+/* 冒险按钮样式 */
+.adventure-btn {
+    padding: 6px 10px;
+    margin: 10px;
+    background: linear-gradient(to bottom, #4a7c59, #3a5a40);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    min-width: 160px;
+    text-align: center;
+}
+.page {
+    display:none;
+}
+
+
+
+.adventure-btn:hover {
+    background: linear-gradient(to bottom, #3a5a40, #2d4a33);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0,0,0,0.3);
+}
+
+.adventure-btn div:first-child {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+
+
+
+
+
+
+.adventure-btn.active {
+    background-color: #4CAF50;
+    color: white;
+    border: 4px solid #45a049;
+    box-shadow: 0 0 13px rgba(0,255,0,0.5);
+}
+
+/* 技能容器样式 */
+#skills-container {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px auto;
+    width: 100%; /* 修改为60%宽度 */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 改为4列布局 */
+    gap: 15px;
+    justify-items: center;
+}
+
+
+/* 技能项样式 */
+.skill-item {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    flex: 1; /* 自动填充空间 */
+    min-width: 200px; /* 设置最小宽度 */
+    max-width: 1000px; /* 设置最大宽度 */
+}
+
+/* 技能标题样式 */
+#skills-page h2 {
+    color: #4a4e69;
+    text-align: center;
+    font-size: 50px;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+/* 技能名称样式 */
+.skill-item h3 {
+    color: #4a4e69;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+/* 技能等级样式 */
+.skill-level {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #666;
+}
+
+/* 升级按钮样式 - 覆盖原有样式 */
+.upgrade-skill.skill-btn {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+}
+

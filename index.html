@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>开宝箱游戏</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 在body中添加开始页面 -->
+    
+    
+    <script src="main.js" type="module"></script>
+    <div id="main-content" class="main-content">
+       
+   <!-- 修改后的左侧导航栏 -->
+   <div id="top-nav" class="top-nav">
+    <button id="nav-chest" class="nav-btn active">宝箱</button>
+    <button id="nav-adventure" class="nav-btn">冒险</button>
+    <button id="nav-skills" class="nav-btn">技能</button>
+    <div class="nav-separator"></div>
+    <button id="nav-save" class="nav-btn">保存</button>
+    <button id="nav-load" class="nav-btn">读档</button>
+</div>
+<div id="game-pages" class="game-pages">
+    <div id="chest-page" class="page">
+        <div class="character-panel" id="character-stats"></div>
+        <div class="game-container">
+            <div class="chest" id="chest">
+                <img src="chest1.png" alt="宝箱" id="chest-img">
+            </div>
+            <!-- 新增升级容器 -->
+            <div class="upgrade-container">
+                <button id="upgrade-chest">升级宝箱</button>
+                <div class="upgrade-tip">消耗金币提升高级装备爆率</div>
+            </div>
+            <div class="equipment-grid" id="equipment-grid">
+                <!-- 装备栏将通过JS动态生成 -->
+            </div>
+        </div>
+        <div class="modal" id="modal">
+            <div class="modal-content">
+                <h2 id="equipment-name"></h2>
+                <p id="equipment-stats"></p>
+                <p id="equipment-power"></p> 
+                <p id="equipment-diff"></p> 
+                <div class="modal-buttons">
+                    <button id="equip-btn">装备</button>
+                    <button id="sell-btn">出售</button>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <div id="adventure-page" class="page">
+       
+        <div id="adventure-container" class="adventure-container">
+            <h2>冒险地图</h2>  
+        </div>
+    </div>
+
+    <div id="skills-page" class="page">
+        <h2>技能学习</h2>  
+        <div id="skills-container">
+
+</div>
+
+    
+            
+        </div>
+    </div>
+    <div id="report-panel" class="report-panel">
+        <h3>任务报告</h3>
+        <div id="report-content"></div>
+    </div>
+</div>
+</body>
+</html>
