@@ -16,7 +16,7 @@ let reportContent = document.getElementById('report-content');
 
 // 玩家当前装备
 export let playerEquipment = Array(9).fill(null);
-
+let keyboardEnabled = true;
 // 当前打开的装备
 let currentEquipment = null;
 // 页面状态缓存
@@ -76,14 +76,34 @@ function initGame() {
 
     // 绑定升级按钮事件
     document.getElementById('upgrade-chest').addEventListener('click', upgradeChest);
-    
+    document.addEventListener('keydown', (e) => {
+        if (!keyboardEnabled) return;
+        
+        // 空格键开宝箱
+        if (e.code === 'Space' && document.getElementById('chest-page').style.display === 'block') {
+            openChest();
+        }
+        
+        // 装备窗口按键
+        if (document.getElementById('modal').style.display === 'flex') {
+            if (e.code === 'KeyY') {
+                equipItem();
+            } else if (e.code === 'KeyN') {
+                sellItem(currentEquipment);
+            }
+        }
+    });
     
     // 添加宝箱等级显示
     const chestLevelDisplay = document.createElement('div');
     chestLevelDisplay.id = 'chest-level';
     chestLevelDisplay.textContent = `宝箱等级: ${chestLevel}`;
     document.getElementById('chest').prepend(chestLevelDisplay);
-
+ // 检查是否有存档
+ if (!localStorage.getItem('gameSave')) {
+    startGame(true);
+    return;
+}
     startGame(false)
 }
 
@@ -124,6 +144,9 @@ function startGame(isNew) {
 
 // 打开宝箱
 function openChest() {
+    if (!keyboardEnabled || document.getElementById('modal').style.display === 'flex') {
+        return;
+    }
     // 切换宝箱图片
     document.getElementById('chest-img').src = 'chest2.png';
     
@@ -140,7 +163,7 @@ function openChest() {
     document.getElementById('equipment-name').textContent = currentEquipment.name;
     document.getElementById('equipment-stats').textContent = 
         `攻击: ${currentEquipment.attack} 防御: ${currentEquipment.defense} 生命: ${currentEquipment.health}`;
-    document.getElementById('equipment-power').textContent = `战斗力: ${Math.floor(currentEquipment.attack + currentEquipment.defense + currentEquipment.health)}`;
+    document.getElementById('equipment-power').textContent = `战斗力: ${currentPower}`;
     document.getElementById('equipment-diff').textContent = `战斗力增加：${powerDiff}`;
 
 
@@ -285,7 +308,8 @@ function switchPage(pageName) {
            
         }
     });
-
+ // 更新键盘控制状态
+ keyboardEnabled = (pageName === 'chest');
     // 更新导航按钮状态
     document.querySelectorAll('.nav-btn').forEach(btn => {
         btn.classList.toggle('active', btn.id === `nav-${pageName}`);
